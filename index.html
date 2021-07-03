@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Learn Chat using NestJS</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+        <script src="socket.io.js"></script>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+
+    <body>
+        <div id="main" class="container-fluid" style="padding: 10px">
+            <div class="row">
+                <!-- Display Online -->
+                <div id="section-online" class="col-md-2">
+                    <h5>Online</h5>
+                    <div id="list">
+                        <!-- <div class="container">${value}</div> -->
+                    </div>
+                </div>
+                <div id="chat-container" class="col-md-8">
+                    <!-- Chat Window -->
+                    <div id="chat-window">
+                        <!-- <div class="identity container"><strong>${name}</strong> was disconnected.</div> -->
+                        <!-- <div class="sent-message"><p>${chat.message}</p></div> -->
+                        <!-- <div class="received-message">
+                            <p>
+                                <span class="name">${chat.name}</span>
+                                <span class="message">${chat.message}</span>
+                            </p>
+                        </div> -->
+                    </div>
+                    <div id="typing">Someone is typing...</div>
+                    <!-- Write messages -->
+                    <form onsubmit="return false">
+                        <div id="chat-control" class="input-group">
+                            <span class="input-group-text">Type message</span>
+                            <input id="txt" type="text" class="form-control" placeholder="here" onkeypress="typing(event)" />
+                            <button id="btnSend" class="btn btn-success" id="send" onclick="sendMessage()">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="my-socket-client.js"></script>
+    </body>
+</html>

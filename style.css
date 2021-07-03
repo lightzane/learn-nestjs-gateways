@@ -1,0 +1,85 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    margin: 0;
+}
+#main {
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid red; */
+}
+#main .row {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+#chat-container {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+#chat-window {
+    /* border: 1px solid #ccc; */
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    /* height: 90%; */
+    width: 100%;
+    overflow: auto;
+}
+#section-online {
+    width: 15%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    overflow: auto;
+    padding: 10px;
+    height: 100%;
+}
+#btnSend {
+    width: 150px;
+}
+
+.received-message {
+    align-self: flex-start;
+}
+.sent-message {
+    align-self: flex-end;
+}
+.received-message p,
+.sent-message p {
+    padding: 5px 15px;
+    border-radius: 5px;
+    background: #eee;
+    width: initial;
+}
+.sent-message p {
+    background: rgba(116, 185, 255, 0.3);
+}
+p span.name {
+    color: #333;
+    display: block;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+p span.message {
+    font-size: 1em;
+}
+.identity {
+    font-size: 0.8em;
+    color: #555;
+    text-align: center;
+    align-self: flex-end;
+}
+#typing {
+    font-size: 0.8em;
+    color: #555;
+    opacity: 0;
+}
+#typing.active {
+    opacity: 1 !important;
+}

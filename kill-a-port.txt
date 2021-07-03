@@ -1,0 +1,19 @@
+(Windows)
+Run CMD in Administrator
+
+
+
+C:\Users\lightzane>netstat -ano | findstr :3000
+  TCP    127.0.0.1:51989        127.0.0.1:3000         SYN_SENT        16420
+  TCP    127.0.0.1:52406        127.0.0.1:3000         SYN_SENT        16420
+  TCP    127.0.0.1:62317        127.0.0.1:3000         SYN_SENT        16420
+  TCP    [::1]:56510            [::1]:3000             SYN_SENT        16420
+  TCP    [::1]:58030            [::1]:3000             SYN_SENT        16420
+  TCP    [::1]:58356            [::1]:3000             SYN_SENT        16420
+
+C:\Users\lightzane>taskkill /PID 16420 /F
+SUCCESS: The process with PID 16420 has been terminated.
+
+C:\Users\lightzane>netstat -ano | findstr :3000
+
+C:\Users\lightzane>
