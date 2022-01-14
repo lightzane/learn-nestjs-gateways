@@ -10,6 +10,12 @@ This project contains `Angular` (frontend) and `Nestjs` (server) application tha
 2. `npm install`
 3. `npm start`
 
+## Getting Started
+
+```
+git checkout 1-start
+```
+
 ## Installation
 
 In **nestjs** project directory:
@@ -42,9 +48,9 @@ nest g gateway <filename>
 This will generated a `filename.gateway.ts` file and nest will auto inject it in the closest `xxx.module.ts` in the specified path
 
 ```typescript
-import { 
+import {
         WebSocketGateway, WebSocketServer
-        SubscribeMessage, ConnectedSocket, MessageBody, 
+        SubscribeMessage, ConnectedSocket, MessageBody,
         OnGatewayDisconnect, OnGatewayConnection
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
