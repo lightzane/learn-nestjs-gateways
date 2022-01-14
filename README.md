@@ -10,6 +10,8 @@ This project contains `Angular` (frontend) and `Nestjs` (server) application tha
 2. `npm install`
 3. `npm start`
 
+Or View Demo: [https://test-gateways.herokuapp.com/](https://test-gateways.herokuapp.com/)
+
 ## Getting Started
 
 ```
