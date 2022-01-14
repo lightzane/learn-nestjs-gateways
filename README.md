@@ -42,7 +42,11 @@ nest g gateway <filename>
 This will generated a `filename.gateway.ts` file and nest will auto inject it in the closest `xxx.module.ts` in the specified path
 
 ```typescript
-import { ConnectedSocket, MessageBody, OnGatewayDisconnect, OnGatewayConnection, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+import { 
+        WebSocketGateway, WebSocketServer
+        SubscribeMessage, ConnectedSocket, MessageBody, 
+        OnGatewayDisconnect, OnGatewayConnection
+} from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway()
