@@ -1,0 +1,9 @@
+<div class="chat-wrapper">
+  <app-chat
+    title="Public"
+    subtitle="For sending a message in general"></app-chat>
+  <app-chat
+    [isPrivate]="true"
+    [title]="variableFromComponent"
+    subtitle="For sending a message to a specific socket or room"></app-chat>
+</div>
