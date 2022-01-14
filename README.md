@@ -1,139 +1,75 @@
-# Angular and NestJs + Gateways
+See demo: [https://test-gateways.herokuapp.com](https://test-gateways.herokuapp.com)
 
-![NestJs v8](https://img.shields.io/badge/nestjs-8.0.0-red) ![Socket.io Client v4](https://img.shields.io/badge/socket.io--client-4.4.0-red)
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
 
-This project contains `Angular` (frontend) and `Nestjs` (server) application that uses web sockets.
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-## Final Output Demo
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-1. Go to `/server` folder
-2. `npm install`
-3. `npm start`
+## Description
 
-## Getting Started
-
-```
-git checkout 1-start
-```
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
 
-In **nestjs** project directory:
-
-```
-npm i @nestjs/websockets @nestjs/platform-socket.io
+```bash
+$ npm install
 ```
 
-Note: The types for socket.io is already included in `@nestjs/cli@v8.0.0` via `@nestjs/websockets@8.0.0`
+## Running the app
 
-In **angular** project directory:
+```bash
+# development
+$ npm run start
 
-```
-npm i socket.io-client@4.4.0
-```
+# watch mode
+$ npm run start:dev
 
-Note: This npm package may apply to any typescript project
-
-## Add code to the following
-
--   [Socket Server](#socket-server)
--   [Socket Client](#socket-client)
-
-### Socket Server
-
-```
-nest g gateway <filename>
+# production mode
+$ npm run start:prod
 ```
 
-This will generated a `filename.gateway.ts` file and nest will auto inject it in the closest `xxx.module.ts` in the specified path
+## Test
 
-```typescript
-import {
-        WebSocketGateway, WebSocketServer
-        SubscribeMessage, ConnectedSocket, MessageBody,
-        OnGatewayDisconnect, OnGatewayConnection
-} from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
+```bash
+# unit tests
+$ npm run test
 
-@WebSocketGateway()
-export class FilenameGateway implements OnGatewayDisconnect, OnGatewayConnection {
-    @WebSocketServer()
-    io: Server; // optional if you need direct access to io server
+# e2e tests
+$ npm run test:e2e
 
-    logger = new Logger(FilenameGateway.name);
-
-    handleDisconnect(@ConnectedSocket() client: Socket) {
-        this.logger.warn(`${client.id} got disconnected`);
-    }
-
-    handleConnection(@ConnectedSocket() client: Socket): void {
-        this.logger.debug(`${client.id} is connected...`);
-    }
-
-    @SubscribeMessage('message')
-    message(@ConnectedSocket() client: Socket, @MessageBody() message: string): string {
-        client.broadcast.emit('message-received', message); // broadcast to every socket except sender
-        return message; // return response to (client) emit
-        // socket.emit(ev, payload, (response)=> this is the value of message)
-    }
-}
+# test coverage
+$ npm run test:cov
 ```
 
-### Socket Client
+## Support
 
-```
-ng g service my-socket
-```
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-```typescript
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { io, Socket } from 'socket.io-client';
+## Stay in touch
 
-@Injectable({
-    providedIn: 'root',
-})
-export class MySocketService {
-    socket: Socket;
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-    constructor() {
-        this.socket = io();
-    }
+## License
 
-    listen<T>(eventName: string): Observable<T> {
-        return new Observable<T>((observer) => {
-            this.socket.on(eventName, (data?: T) => {
-                if (data) observer.next(data);
-            });
-        });
-    }
-
-    emit(eventName: string, payload: any, response?: (response: any) => any): void {
-        this.socket.emit(eventName, payload, (data: any) => response(data));
-        // response() is what the server is returning to the socket who did SubscribedMessage()
-        // @SubscribeMessage()
-        // handleMessage() {
-        //     return 'this one' <--- the "data" in response(data)
-        // }
-    }
-
-    // can also listen like this (hard-code)
-    listenEventName<T>(): Observable<T> {
-        return new Observable((observer) => {
-            this.socket.on('message-received', (response) => {
-                observer.next(response);
-            });
-        });
-    }
-
-    // can also emit like this (hard-code)
-    emitEventName<T>(payload: any): void {
-        this.socket.emit('message', payload);
-    }
-
-    // can also emit like this (hard-code)
-    emitEventNameWithResponse<T>(response: (data: any) => any): void {
-        this.socket.emit('message', payload, (data) => response(data));
-    }
-}
-```
+Nest is [MIT licensed](LICENSE).
