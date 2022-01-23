@@ -36,6 +36,8 @@ npm i socket.io-client@4.4.0
 
 Note: This npm package may apply to any typescript project
 
+**IMPORTANT**: Why `v4.4.0` ? After installation of `@nestjs/websockets` and `@nestjs/platform-socket.io` an npm package called `socket.io` (for the server) is already included as a dependency. So observe first the exact version that was installed by the two package. In this case, `socket@4.4.0` is included in those 2 packages.
+
 ## Add code to the following
 
 -   [Socket Server](#socket-server)
@@ -138,4 +140,36 @@ export class MySocketService {
         this.socket.emit('message', payload, (data) => response(data));
     }
 }
+```
+
+### Cross Origin Resource Sharing
+
+What if the socket of Server and Client are on different origins?
+
+(e.g.) `Server = localhost:4200` and `Client = localhost:3000`
+
+Provide `CORS` for socket.io!
+
+**Server**
+
+```typescript
+@WebSocketGateway({
+  cors: { // ! REQUIRED when your client is on a third-party origin (see also frontend/src/app/my-socket.service.ts)
+    origin: 'http://localhost:4200',
+    allowedHeaders: ['my-custom-header'],
+    credentials: true
+  }
+})
+```
+
+**Client**
+
+```typescript
+// ! REQUIRED when Server is on a third-party origin // (see also server/src/my.gateway.ts)
+this.socket = io('http://localhost:3000', {
+    withCredentials: true,
+    extraHeaders: {
+        'my-custom-header': 'abcd',
+    },
+});
 ```

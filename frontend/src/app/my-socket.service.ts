@@ -10,7 +10,16 @@ export class MySocketService {
   socket: Socket;
 
   constructor() {
-    this.socket = io();
+    // * If Server is in its own origin
+    // this.socket = io();
+
+    // ! REQUIRED when Server is on a third-party origin // (see also server/src/my.gateway.ts)
+    this.socket = io('http://localhost:3000', {
+      withCredentials: true,
+      extraHeaders: {
+        'my-custom-header': 'abcd'
+      }
+    });
   }
 
   listen<T>(eventName: string): Observable<T> {

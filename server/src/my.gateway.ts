@@ -1,8 +1,15 @@
 import { Logger } from '@nestjs/common';
 import { ConnectedSocket, OnGatewayDisconnect, OnGatewayConnection, SubscribeMessage, WebSocketGateway, WebSocketServer, MessageBody } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { Message } from './model/message';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  cors: { // ! REQUIRED when your client is on a third-party origin (see also frontend/src/app/my-socket.service.ts)
+    origin: 'http://localhost:4200',
+    allowedHeaders: ['my-custom-header'],
+    credentials: true
+  }
+})
 export class MyGateway implements OnGatewayDisconnect, OnGatewayConnection {
   @WebSocketServer()
   io: Server;
@@ -18,10 +25,10 @@ export class MyGateway implements OnGatewayDisconnect, OnGatewayConnection {
   }
 
   @SubscribeMessage('message')
-  message(@ConnectedSocket() client: Socket, @MessageBody() message: string): string {
+  message(@ConnectedSocket() client: Socket, @MessageBody() data: Message): string {
     this.logger.log(`${client.id} is sending a message to the public`);
-    client.broadcast.emit('message-received', message); // broadcast to every socket except sender
-    return message; // return response to (client) emit
+    client.broadcast.emit('message-received', data); // broadcast to every socket except sender
+    return data.message; // return response to (client) emit
     // socket.emit(ev, payload, (response)=> this is the value of message)
   }
 
@@ -37,10 +44,10 @@ export class MyGateway implements OnGatewayDisconnect, OnGatewayConnection {
   }
 
   @SubscribeMessage('message-room')
-  messageRoom(@ConnectedSocket() client: Socket, @MessageBody() request: { message: string, topic: string; }): string {
-    this.logger.debug(`${client.id} is sending a message on ${request.topic}`);
-    client.broadcast.to(request.topic).emit('room-message-received', request.message);
-    return request.message;// return response to (client) emit
+  messageRoom(@ConnectedSocket() client: Socket, @MessageBody() data: Message): string {
+    this.logger.debug(`${client.id} is sending a message on ${data.topic}`);
+    client.broadcast.to(data.topic).emit('room-message-received', data);
+    return data.message;// return response to (client) emit
     // socket.emit(ev, payload, (response)=> this is the value of request.message)
   }
 }
