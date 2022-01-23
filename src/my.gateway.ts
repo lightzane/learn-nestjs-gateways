@@ -5,7 +5,7 @@ import { Message } from './model/message';
 
 @WebSocketGateway({
   cors: { // ! REQUIRED when your client is on a third-party origin (see also frontend/src/app/my-socket.service.ts)
-    origin: 'http://localhost:4200',
+    origin: ['http://localhost:4200', 'https://lightzane.github.io/learn-nestjs-gateways'],
     allowedHeaders: ['my-custom-header'],
     credentials: true
   }

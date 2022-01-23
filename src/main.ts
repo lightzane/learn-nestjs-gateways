@@ -7,6 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const logger = new Logger('NestApplication');
   app.useStaticAssets('public');
+  app.enableCors();
   const port = process.env.PORT || 3000;
   await app.listen(port).then(() => logger.debug(`Running on localhost:${port}`));
 }
