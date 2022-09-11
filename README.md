@@ -53,7 +53,7 @@ This will generated a `filename.gateway.ts` file and nest will auto inject it in
 
 ```typescript
 import {
-        WebSocketGateway, WebSocketServer
+        WebSocketGateway, WebSocketServer,
         SubscribeMessage, ConnectedSocket, MessageBody,
         OnGatewayDisconnect, OnGatewayConnection
 } from '@nestjs/websockets';
